@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "providers": {
+    "supabase": {
+      "name": "Supabase"
+    }
+  },
+  "resources": {
+    "bugfixer": {
+      "livemode": true,
+      "name": "bugfixer",
+      "providerName": "Supabase",
+      "serviceId": "project"
+    },
+    "supabase-plan": {
+      "livemode": true,
+      "name": "supabase-plan",
+      "providerName": "Supabase",
+      "serviceId": "free"
+    },
+    "supabase-plan-2": {
+      "livemode": true,
+      "name": "supabase-plan-2",
+      "providerName": "Supabase",
+      "serviceId": "free"
+    }
+  }
+}

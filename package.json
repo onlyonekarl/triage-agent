@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@nodeops-createos/sandbox": "^0.8.2"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "exception": "ZeroDivisionError",
+  "message": "division by zero",
+  "file": "sample_app.py",
+  "function": "average",
+  "line": 5,
+  "input": []
+}

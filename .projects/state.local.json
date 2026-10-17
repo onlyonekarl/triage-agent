@@ -1,0 +1,64 @@
+{
+  "version": 4,
+  "project": {
+    "catalog": "prod",
+    "initializedAt": "2026-10-17T22:15:30.219Z",
+    "merchantDisplayName": null,
+    "merchantId": "acct_1UPyoDChKOLKUL1x",
+    "projectId": "project_61Vb3qLbTuRMdhMpb16VZMlZMrSQTqts4I83PV1ma692",
+    "projectName": "triage-agent"
+  },
+  "providers": {
+    "supabase": {
+      "accountRequestId": "facctrq_61Vb3si2932nSyxTQ16VZMlZMrSQTqts4I83PV1maBrU",
+      "configuration": {},
+      "linkedAt": "2026-10-17T22:18:08.424Z",
+      "providerId": "prvdr_61UIXYHdsyF69pZbG52n2",
+      "providerName": "Supabase",
+      "redirectUrl": null,
+      "requestedAt": "2026-10-17T22:18:08.423Z",
+      "status": "complete"
+    }
+  },
+  "resources": {
+    "bugfixer": {
+      "configuration": {
+        "name": "bugfixer",
+        "region": "americas"
+      },
+      "createdAt": "2026-10-17T22:24:11.093Z",
+      "lastRevealedAt": "2026-10-17T22:24:11.341Z",
+      "lastStatus": "complete",
+      "livemode": true,
+      "name": "bugfixer",
+      "providerId": "prvdr_61UIXYHdsyF69pZbG52n2",
+      "providerName": "Supabase",
+      "resourceId": "fres_61Vb3yU29WXwNBoKC16VZMlZMrSQTqts4I83PV1ma8tk",
+      "serviceId": "project"
+    },
+    "supabase-plan": {
+      "configuration": {},
+      "createdAt": "2026-10-17T22:23:53.190Z",
+      "lastRevealedAt": "2026-10-17T22:23:53.471Z",
+      "lastStatus": "complete",
+      "livemode": true,
+      "name": "supabase-plan",
+      "providerId": "prvdr_61UIXYHdsyF69pZbG52n2",
+      "providerName": "Supabase",
+      "resourceId": "fres_61Vb3yC1TeJC1bz4x16VZMlZMrSQTqts4I83PV1maIBE",
+      "serviceId": "free"
+    },
+    "supabase-plan-2": {
+      "configuration": {},
+      "createdAt": "2026-10-17T22:18:09.866Z",
+      "lastRevealedAt": null,
+      "lastStatus": "errored",
+      "livemode": true,
+      "name": "supabase-plan-2",
+      "providerId": "prvdr_61UIXYHdsyF69pZbG52n2",
+      "providerName": "Supabase",
+      "resourceId": "fres_61Vb3su67ViqxyBoq16VZMlZMrSQTqts4I83PV1maKG0",
+      "serviceId": "free"
+    }
+  }
+}
