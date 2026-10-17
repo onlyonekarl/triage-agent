@@ -16,6 +16,8 @@ REPRO_FILE = "test_repro.py"
 REPRO_MODULE = "test_repro"
 EXISTING_MODULE = "test_sample_app"
 BACKUP_FILE = "sample_app.py.bak"
+ATTEMPT_FILE = "attempted_fix.py"
+MAX_FIX_ATTEMPTS = 2
 
 
 def read(path):
@@ -29,13 +31,14 @@ def write(path, text):
 
 
 def strip_fences(text):
-    # Models sometimes wrap code in ``` fences. Remove them.
-    text = text.strip()
-    if text.startswith("```"):
-        lines = text.splitlines()[1:]
-        if lines and lines[-1].strip() == "```":
-            lines = lines[:-1]
-        text = "\n".join(lines)
+    # Models often wrap code in ``` fences, sometimes after an explanation.
+    # Keep only what is inside the first fenced block.
+    if "```" in text:
+        start = text.index("```") + 3
+        newline = text.find("\n", start)
+        start = newline + 1 if newline != -1 else start
+        end = text.find("```", start)
+        text = text[start:end] if end != -1 else text[start:]
     return text.strip() + "\n"
 
 
@@ -93,22 +96,39 @@ def main():
         return
     print("Reproduced: the test fails.")
 
-    print("3. Asking the AI for a fix...")
-    fixed = ask_ai(
-        "Here is an error report:\n" + report + "\n"
-        "Here is the code:\n" + source + "\n"
-        "The failing test output:\n" + output + "\n"
-        "Return the complete corrected sample_app.py only, with no explanation."
-    )
-
-    print("4. Applying the fix and running both test files...")
     shutil.copy(APP_FILE, BACKUP_FILE)
-    write(APP_FILE, fixed)
-    repro_ok, _ = run_tests(REPRO_MODULE)
-    existing_ok, _ = run_tests(EXISTING_MODULE)
-    if not (repro_ok and existing_ok):
+    feedback = ""
+    for attempt in range(1, MAX_FIX_ATTEMPTS + 1):
+        print(f"3. Asking the AI for a fix (attempt {attempt} of {MAX_FIX_ATTEMPTS})...")
+        fixed = ask_ai(
+            "Here is an error report:\n" + report + "\n"
+            "Here is the code:\n" + source + "\n"
+            "The failing test output:\n" + output + "\n"
+            + feedback +
+            "Return the complete corrected sample_app.py only, with no explanation."
+        )
+
+        print("4. Applying the fix and running both test files...")
+        write(APP_FILE, fixed)
+        repro_ok, repro_out = run_tests(REPRO_MODULE)
+        existing_ok, existing_out = run_tests(EXISTING_MODULE)
+        if repro_ok and existing_ok:
+            break
+
+        write(ATTEMPT_FILE, fixed)
         shutil.copy(BACKUP_FILE, APP_FILE)
-        print("FIX FAILED: the original code has been restored.")
+        feedback = (
+            "Your previous fix was rejected. These tests failed:\n"
+            + repro_out + "\n" + existing_out + "\n"
+        )
+        print("This fix failed the tests. The original code has been restored for now.")
+    else:
+        print("FIX FAILED after all attempts: the original code has been restored.")
+        print(f"The last attempt is saved in {ATTEMPT_FILE}.")
+        print("Output from the new test:")
+        print(repro_out)
+        print("Output from the existing tests:")
+        print(existing_out)
         return
 
     diff = "".join(difflib.unified_diff(
