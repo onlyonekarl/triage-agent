@@ -1,5 +1,7 @@
 __pycache__/
 
+*.bak
+
 .projects/cache
 .projects/vault
 .projects/state.test.json
@@ -7,4 +9,3 @@ __pycache__/
 .env
 .env.*
 !.env.example
-*.bak

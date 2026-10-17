@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bug Fixer That Reproduces First</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 0 auto; padding: 16px; line-height: 1.5; color: #1a1a1a; }
+    pre { background: #f4f4f4; padding: 12px; border-radius: 6px; overflow-x: auto; }
+    code { font-family: ui-monospace, monospace; }
+  </style>
+</head>
+<body>
+  <h1>Bug Fixer That Reproduces First</h1>
+  <p>An AI agent that proves a crash exists before it fixes it.</p>
+
+  <h2>The bug</h2>
+  <p><code>average([])</code> divides by zero and crashes with <code>ZeroDivisionError</code>.</p>
+
+  <h2>What the agent does</h2>
+  <ol>
+    <li>Reads the error report.</li>
+    <li>Writes a test that reproduces the crash.</li>
+    <li>Runs the test and checks that it fails.</li>
+    <li>Writes a fix.</li>
+    <li>Reruns the tests and checks that they pass.</li>
+  </ol>
+
+  <h2>Result</h2>
+  <pre>REPRODUCED: yes
+FIXED: yes. The new test and the existing tests pass.</pre>
+
+  <h2>Built with</h2>
+  <ul>
+    <li>CreateOS sandbox: the agent's code runs inside an isolated sandbox.</li>
+    <li>Stripe Projects: Supabase is set up from the command line.</li>
+    <li>OpenRouter: the AI model the agent calls.</li>
+  </ul>
+
+  <p>Code: <a href="https://github.com/onlyonekarl/triage-agent">github.com/onlyonekarl/triage-agent</a></p>
+</body>
+</html>
